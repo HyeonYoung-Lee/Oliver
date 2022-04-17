@@ -68,19 +68,20 @@ def analyzeData(path, filename, interval, pw, resultF):
     x_second_value = copyData[x_second_idx][1]
 
     # calculate interval and pulse width
-    interval = float(interval) * (1/1000) + float(interval) * (1/1000000000)
+    cal_interval = float(interval) * (1/1000) + float(interval) * (1/1000000000)
     pw = float(pw) * (1/1000) + float(pw) * (1/1000000000)
 
     # find time and index of first pulse
-    subtract = interval + pw
+    subtract = cal_interval + pw
     x_first = x_second - subtract
     x_fisrt_idx = np.where((copyData[:, 0]) == round(x_first, 10))
     try:
         x_fisrt_idx = x_fisrt_idx[0][0]
         x_first_value = copyData[x_fisrt_idx][1]
         ## first_rate_of_change = copyData[x_fisrt_idx][2]
-        get_ratio = x_first_value / x_second_value
-        resultF.write(filename + ' : ' + str(get_ratio) + '\n')
+        get_ratio = x_second_value / x_first_value
+        resultF.write(str(interval) + ' ' + str(x_first_value) +
+                      ' ' + str(x_second_value) + ' ' + str(get_ratio) + '\n')
 
     except:
         resultF.write(filename + ' : !!!!! Analyze failed !!!!!\n')
