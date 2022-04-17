@@ -68,7 +68,8 @@ def analyzeData(path, filename, interval, pw, resultF):
     x_second_value = copyData[x_second_idx][1]
 
     # calculate interval and pulse width
-    cal_interval = float(interval) * (1/1000) + float(interval) * (1/1000000000)
+    cal_interval = float(interval) * (1/1000) + \
+        float(interval) * (1/1000000000)
     pw = float(pw) * (1/1000) + float(pw) * (1/1000000000)
 
     # find time and index of first pulse
