@@ -2,6 +2,7 @@ import os
 import tkinter
 import traceback
 import numpy as np
+import natsort
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
@@ -10,8 +11,10 @@ from tkinter import messagebox
 def readDirectory():
     global interval
     resultF = open(path + '/result.txt', 'w')
+    filelist = os.listdir(path)
+    filelist = natsort.natsorted(filelist)
     try:
-        for filename in os.listdir(path):
+        for filename in filelist:
             tmp = filename.split('ms')
             interval = tmp[len(tmp)-2]
             with open(os.path.join(path, filename), 'r') as f:
