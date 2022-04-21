@@ -20,7 +20,7 @@ def readDirectory():
             with open(os.path.join(path, filename), 'r') as f:
                 analyzeData(path, filename, interval, pw, resultF)
         resultF.close()
-
+        print('Complete successfully')
         exitProg = messagebox.askquestion(
             "Complete", "Complete successfully\n Do you want to quit?")
         if exitProg == 'yes':
@@ -34,7 +34,7 @@ def readDirectory():
 
 
 def analyzeData(path, filename, interval, pw, resultF):
-    if filename == 'result.txt':    
+    if filename == 'result.txt':
         return
 
     full_path = path + '/' + filename
@@ -53,31 +53,31 @@ def analyzeData(path, filename, interval, pw, resultF):
 
     # find five values in small order
     for i in range(len(copyData)-1, -1, -1):
-        if copyData[i][2] < -0.2:
+        if copyData[i][2] < - 0.2:
             x_second_idx = i
             break
 
     # find time and index of first pulse
     subtract = int(interval) + int(pw)
     subtract_round = subtract / (round(h, 7)*1000)
-    
+
     x_first_idx = int(x_second_idx - subtract_round)
-    
+
     try:
         x_first_time = copyData[x_first_idx][0]
         x_second_time = copyData[x_second_idx][0]
         x_first_value = copyData[x_first_idx][1]
         x_second_value = copyData[x_second_idx][1]
         ppf = x_second_value / x_first_value
-        
-        resultF.write(str(interval) + '    ' + str(x_first_time) +
-                      '    ' + str(x_second_time) + '    ' + str(ppf) + '\n')
+
+        print(filename, ' : success')
+        resultF.write(str(interval) + '    ' + str(x_first_value) +
+                      '    ' + str(x_second_value) + '    ' + str(ppf) + '\n')
 
     except:
-        print(filename)
+        print(filename, ' : failed')
         traceback.print_exc()
         resultF.write(filename + ' : !!!!! Analyze failed !!!!!\n')
-
 
 
 # GUI
