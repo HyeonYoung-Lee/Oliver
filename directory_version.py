@@ -34,7 +34,7 @@ def readDirectory():
 
 
 def analyzeData(path, filename, interval, pw, resultF):
-    if filename == 'result.txt':
+    if filename == 'result.txt':    
         return
 
     full_path = path + '/' + filename
